@@ -71,8 +71,8 @@ public struct CellSwipeAction {
 }
 
 /// UITableViewCell that calls its onHighlight closure if it has one
-public class SmartCell: UITableViewCell {
-    override public func setHighlighted(_ highlighted: Bool, animated: Bool) {
+open class SmartCell: UITableViewCell {
+    override open func setHighlighted(_ highlighted: Bool, animated: Bool) {
         guard let actionable = self as? CellActionable  else {
             return
         }
