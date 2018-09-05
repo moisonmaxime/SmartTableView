@@ -90,18 +90,18 @@ public class SmartTableView: UITableView {
 
 
     // Insertion/Deletion
-    func resetTo(rows rowsToSet: [SmartCell]) {
+    public func resetTo(rows rowsToSet: [SmartCell]) {
         rows = rowsToSet
         reloadData()
     }
 
 
-    func insert(row: SmartCell, at index: Int,
+    public func insert(row: SmartCell, at index: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
         insert(rows: [row], at: index)
     }
 
-    func insert(rows rowsToAdd: [SmartCell], at index: Int,
+    public func insert(rows rowsToAdd: [SmartCell], at index: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
         rows.insert(contentsOf: rowsToAdd, at: index)
         let indexPaths = (index..<(index+rowsToAdd.count)).map({ return IndexPath(row: $0, section: 0) })
@@ -109,24 +109,24 @@ public class SmartTableView: UITableView {
     }
 
 
-    func reload(row: Int,
+    public func reload(row: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
         reload(rows: [row], with: animation)
     }
 
-    func reload(rows: [Int],
+    public func reload(rows: [Int],
                 with animation: UITableViewRowAnimation = .automatic) {
         reloadRows(at: rows.map({ IndexPath(row: $0, section: 0)}), with: animation)
     }
 
 
-    func delete(row index: Int,
+    public func delete(row index: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
         rows.remove(at: index)
         deleteRows(at: [IndexPath(row: index, section: 0)], with: animation)
     }
 
-    func delete(rows indexes: [Int],
+    public func delete(rows indexes: [Int],
                 with animation: UITableViewRowAnimation = .automatic) {
         for index in indexes.sorted().reversed() {
             rows.remove(at: index)
@@ -134,7 +134,7 @@ public class SmartTableView: UITableView {
         deleteRows(at: indexes.map({ return IndexPath(row: $0, section: 0) }), with: animation)
     }
 
-    func delete(count: Int, at startIndex: Int,
+    public func delete(count: Int, at startIndex: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
         let indexes = (startIndex..<(startIndex+count))
         for _ in indexes {
