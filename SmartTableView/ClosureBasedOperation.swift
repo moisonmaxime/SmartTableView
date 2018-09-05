@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClosureBasedOperation: Operation {
+public class ClosureBasedOperation: Operation {
     private var block: () -> Void
 
     init(block: @escaping () -> Void) {
@@ -16,7 +16,7 @@ class ClosureBasedOperation: Operation {
         super.init()
     }
 
-    override func main() {
+    override public func main() {
         block()
     }
 }

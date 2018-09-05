@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SmartTableView: UITableView {
+public class SmartTableView: UITableView {
 
     /* --- Complex Loadable Management --- */
 
@@ -69,7 +69,7 @@ class SmartTableView: UITableView {
         setup()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -84,7 +84,7 @@ class SmartTableView: UITableView {
 
 
     // number of sections
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -152,20 +152,20 @@ class SmartTableView: UITableView {
 extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
 
     // Data (size)
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows.count
     }
 
 
     // Cell Loading
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         rows[indexPath.row].selectionStyle = .none
         return rows[indexPath.row]
     }
 
 
     // Actions
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if var expandable = rows[indexPath.row] as? CellExpandable {
             if expandable.isCollapsed {
                 insert(rows: expandable.collapsibleCells, at: indexPath.row+1)
@@ -181,7 +181,7 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
     }
 
 
-    func tableView(_ tableView: UITableView,
+    public func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let swipeableCell = rows[indexPath.row] as? CellLeadingSwipeActionable else {
             return UISwipeActionsConfiguration(actions: [])
@@ -194,7 +194,7 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
     }
 
 
-    func tableView(_ tableView: UITableView,
+    public func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let swipeableCell = rows[indexPath.row] as? CellTrailingSwipeActionable else {
             return UISwipeActionsConfiguration(actions: [])
@@ -220,7 +220,7 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
     }
 
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let sizeable = rows[indexPath.row] as? CellSizeable else { return UITableViewAutomaticDimension }
         return sizeable.height
     }

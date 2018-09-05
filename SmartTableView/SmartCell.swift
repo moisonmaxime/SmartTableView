@@ -10,7 +10,7 @@ import UIKit
 
 /// Allows a cell to be loaded with a cellModel (usually a struct).
 /// This is supposed to be used when the cell is initially created.
-protocol CellLoadable {
+public protocol CellLoadable {
     associatedtype Model
     var model: Model? { get set }
     func loadCell(_ model: Model)
@@ -18,7 +18,7 @@ protocol CellLoadable {
 
 /// Allows a cell that has a heavier loading process to be loaded when it appears.
 /// Call onShow when it appears, call onExpire when memory needs to be freed
-protocol CellComplexLoadable {
+public protocol CellComplexLoadable {
     var loadingDate: Date? { get set }
     var onShow: (() -> Void)? { get }
     var onExpire: (() -> Void)? { get }
@@ -26,34 +26,34 @@ protocol CellComplexLoadable {
 
 /// Allows a cell to actionable when tapped.
 /// This is supposed to be used when the cell is selected (selectAtIndex...).
-protocol CellActionable {
+public protocol CellActionable {
     var onTap: (() -> Void)? { get }
     var onHighlight: ((Bool) -> Void)? { get }
 }
 
 /// Allows a cell to specify its height
-protocol CellSizeable {
+public protocol CellSizeable {
     var height: CGFloat { get }
 }
 
 /// Allows a cell to be expandable with multiple children cells.
-protocol CellExpandable {
+public protocol CellExpandable {
     var collapsibleCells: [SmartCell] { get }
     var isCollapsed: Bool { get set }
 }
 
 /// Allows a cell to have leading swiping actions.
-protocol CellLeadingSwipeActionable {
+public protocol CellLeadingSwipeActionable {
     var leadingSwipeActions: [CellSwipeAction] { get }
 }
 
 /// Allows a cell to have trailing swiping actions.
-protocol CellTrailingSwipeActionable {
+public protocol CellTrailingSwipeActionable {
     var trailingSwipeActions: [CellSwipeAction] { get }
 }
 
 /// Defines a cell Swipe action for a `CellLeadingSwipeActionable` or `CellTrailingSwipeActionable`
-struct CellSwipeAction {
+public struct CellSwipeAction {
     typealias CellSwipeActionHandler = (SmartTableView, Int) -> Void
     var title: String?
     var image: UIImage?
@@ -71,8 +71,8 @@ struct CellSwipeAction {
 }
 
 /// UITableViewCell that calls its onHighlight closure if it has one
-class SmartCell: UITableViewCell {
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+public class SmartCell: UITableViewCell {
+    override public func setHighlighted(_ highlighted: Bool, animated: Bool) {
         guard let actionable = self as? CellActionable  else {
             return
         }
