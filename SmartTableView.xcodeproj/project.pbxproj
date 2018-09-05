@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1BF0809F213F55FA00F1FCDD /* SmartTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF0809E213F55FA00F1FCDD /* SmartTableView.swift */; };
 		1BF080A1213F560F00F1FCDD /* SmartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF080A0213F560F00F1FCDD /* SmartCell.swift */; };
+		1BF080A3213F661B00F1FCDD /* ClosureBasedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF080A2213F661B00F1FCDD /* ClosureBasedOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +17,7 @@
 		1BF08097213F55E400F1FCDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BF0809E213F55FA00F1FCDD /* SmartTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTableView.swift; sourceTree = "<group>"; };
 		1BF080A0213F560F00F1FCDD /* SmartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCell.swift; sourceTree = "<group>"; };
+		1BF080A2213F661B00F1FCDD /* ClosureBasedOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureBasedOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 			children = (
 				1BF0809E213F55FA00F1FCDD /* SmartTableView.swift */,
 				1BF080A0213F560F00F1FCDD /* SmartCell.swift */,
+				1BF080A2213F661B00F1FCDD /* ClosureBasedOperation.swift */,
 				1BF08097213F55E400F1FCDD /* Info.plist */,
 			);
 			path = SmartTableView;
@@ -134,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BF0809F213F55FA00F1FCDD /* SmartTableView.swift in Sources */,
+				1BF080A3213F661B00F1FCDD /* ClosureBasedOperation.swift in Sources */,
 				1BF080A1213F560F00F1FCDD /* SmartCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

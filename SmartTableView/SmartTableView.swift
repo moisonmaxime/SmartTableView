@@ -10,6 +10,57 @@ import UIKit
 
 class SmartTableView: UITableView {
 
+    /* --- Complex Loadable Management --- */
+
+    private lazy var complexOperationQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "complex operation queue"
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+
+    private lazy var activeComplexOperations: [Int: Operation] = [:]
+
+    private func startOperation(at index: Int) {
+        guard let cell = rows[index] as? CellComplexLoadable,
+            let onAppear = cell.onShow,
+            activeComplexOperations[index] == nil else { return }
+        let operation = ClosureBasedOperation(block: onAppear)
+        operation.completionBlock = {
+            self.activeComplexOperations.removeValue(forKey: index)
+        }
+        activeComplexOperations[index] = operation
+        complexOperationQueue.addOperation(operation)
+    }
+
+    private func startOperationForAllVisibleCells() {
+        guard let visibleIndexPaths = indexPathsForVisibleRows else { return }
+        let visibleIndexes = Set(visibleIndexPaths.map({ return $0.row }))
+        let indexesToCancel = Set(activeComplexOperations.keys).subtracting(visibleIndexes)
+        let indexesToStart = visibleIndexes.subtracting(Set(activeComplexOperations.keys))
+
+        for index in indexesToCancel {
+            if let operation = activeComplexOperations[index] {
+                operation.cancel()
+            }
+            activeComplexOperations.removeValue(forKey: index)
+        }
+
+        for index in indexesToStart {
+            startOperation(at: index)
+        }
+    }
+
+    private func suspendAllOperations() {
+        complexOperationQueue.isSuspended = true
+    }
+
+    private func resumeAllOperations() {
+        complexOperationQueue.isSuspended = false
+    }
+
+    /* --- SmartTableView --- */
+
     /// Array of the rows currently loaded in the table view
     private(set) var rows: [SmartCell] = []
 
@@ -23,6 +74,7 @@ class SmartTableView: UITableView {
         setup()
     }
 
+
     // SmartTableView is its own delegate and dataSource
     private func setup() {
         separatorStyle = .none
@@ -30,16 +82,19 @@ class SmartTableView: UITableView {
         delegate = self
     }
 
+
     // number of sections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+
 
     // Insertion/Deletion
     func resetTo(rows rowsToSet: [SmartCell]) {
         rows = rowsToSet
         reloadData()
     }
+
 
     func insert(row: SmartCell, at index: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
@@ -53,6 +108,7 @@ class SmartTableView: UITableView {
         insertRows(at: indexPaths, with: animation)
     }
 
+
     func reload(row: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
         reload(rows: [row], with: animation)
@@ -62,6 +118,7 @@ class SmartTableView: UITableView {
                 with animation: UITableViewRowAnimation = .automatic) {
         reloadRows(at: rows.map({ IndexPath(row: $0, section: 0)}), with: animation)
     }
+
 
     func delete(row index: Int,
                 with animation: UITableViewRowAnimation = .automatic) {
@@ -91,6 +148,7 @@ class SmartTableView: UITableView {
 
 
 
+
 extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
 
     // Data (size)
@@ -98,11 +156,13 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
         return rows.count
     }
 
+
     // Cell Loading
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         rows[indexPath.row].selectionStyle = .none
         return rows[indexPath.row]
     }
+
 
     // Actions
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -112,13 +172,14 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
             } else {
                 delete(count: expandable.collapsibleCells.count, at: indexPath.row+1)
             }
-            let newCollapsedStated = !expandable.isCollapsed
-            expandable.isCollapsed = newCollapsedStated
+            let newCollapsedState = !expandable.isCollapsed
+            expandable.isCollapsed = newCollapsedState
         }
         if let actionable = rows[indexPath.row] as? CellActionable {
             actionable.onTap?()
         }
     }
+
 
     func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -132,6 +193,7 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
         return configuration
     }
 
+
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let swipeableCell = rows[indexPath.row] as? CellTrailingSwipeActionable else {
@@ -144,6 +206,7 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
         return configuration
     }
 
+    
     private func cellSwipeActionToContextualAction(_ swipeAction: CellSwipeAction,
                                                    for cell: SmartCell,
                                                    at indexPath: IndexPath) -> UIContextualAction {
@@ -156,8 +219,17 @@ extension SmartTableView: UITableViewDataSource, UITableViewDelegate {
         return contextualAction
     }
 
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let sizeable = rows[indexPath.row] as? CellSizeable else { return UITableViewAutomaticDimension }
         return sizeable.height
     }
+}
+
+
+
+
+
+extension SmartTableView: UIScrollViewDelegate {
+
 }

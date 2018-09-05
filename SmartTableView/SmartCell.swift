@@ -16,6 +16,14 @@ protocol CellLoadable {
     func loadCell(_ model: Model)
 }
 
+/// Allows a cell that has a heavier loading process to be loaded when it appears.
+/// Call onShow when it appears, call onExpire when memory needs to be freed
+protocol CellComplexLoadable {
+    var loadingDate: Date? { get set }
+    var onShow: (() -> Void)? { get }
+    var onExpire: (() -> Void)? { get }
+}
+
 /// Allows a cell to actionable when tapped.
 /// This is supposed to be used when the cell is selected (selectAtIndex...).
 protocol CellActionable {
