@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BF08098213F55E400F1FCDD /* SmartTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BF08096213F55E400F1FCDD /* SmartTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1BF0809F213F55FA00F1FCDD /* SmartTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF0809E213F55FA00F1FCDD /* SmartTableView.swift */; };
+		1BF080A1213F560F00F1FCDD /* SmartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF080A0213F560F00F1FCDD /* SmartCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1BF08093213F55E400F1FCDD /* SmartTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SmartTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BF08096213F55E400F1FCDD /* SmartTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartTableView.h; sourceTree = "<group>"; };
 		1BF08097213F55E400F1FCDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BF0809E213F55FA00F1FCDD /* SmartTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTableView.swift; sourceTree = "<group>"; };
+		1BF080A0213F560F00F1FCDD /* SmartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,8 @@
 		1BF08095213F55E400F1FCDD /* SmartTableView */ = {
 			isa = PBXGroup;
 			children = (
-				1BF08096213F55E400F1FCDD /* SmartTableView.h */,
+				1BF0809E213F55FA00F1FCDD /* SmartTableView.swift */,
+				1BF080A0213F560F00F1FCDD /* SmartCell.swift */,
 				1BF08097213F55E400F1FCDD /* Info.plist */,
 			);
 			path = SmartTableView;
@@ -59,7 +62,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF08098213F55E400F1FCDD /* SmartTableView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,7 @@
 				TargetAttributes = {
 					1BF08092213F55E400F1FCDD = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -130,6 +133,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF0809F213F55FA00F1FCDD /* SmartTableView.swift in Sources */,
+				1BF080A1213F560F00F1FCDD /* SmartCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +264,7 @@
 		1BF0809C213F55E400F1FCDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -276,6 +282,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = maximemoison.SmartTableView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -284,6 +291,7 @@
 		1BF0809D213F55E400F1FCDD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
